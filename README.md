@@ -15,7 +15,7 @@ Telegram-бот, который превращает обычные изобра
 
 ## 📸 Пример
 
-![example](example.png)
+![Bot example](example.jpg)
 
 ---
 
