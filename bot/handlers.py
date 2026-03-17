@@ -8,8 +8,6 @@ from telegram.ext import ContextTypes
 from image_service import add_caption
 from config import CHANNEL_ID, CAPTIONS_PATH
 
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
-CAPTIONS_PATH = os.path.join(BASE_DIR, "captions.txt")
 async def handle_photo(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     photo = update.message.photo[-1]
