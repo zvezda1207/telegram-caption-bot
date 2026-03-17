@@ -3,7 +3,7 @@ import os
 from telegram.ext import ApplicationBuilder, MessageHandler, CallbackQueryHandler, filters, CommandHandler
 
 from config import TOKEN, IMAGES_DIR
-from handlers import handle_photo, share
+from handlers import handle_photo, share, start
 
 os.makedirs(IMAGES_DIR, exist_ok=True)
 
