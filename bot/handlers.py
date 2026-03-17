@@ -28,7 +28,10 @@ async def handle_photo(update: Update, context: ContextTypes.DEFAULT_TYPE):
     with open(CAPTIONS_PATH, "r", encoding="utf-8") as f:
         captions = f.readlines()
 
-    caption = random.choice(captions).strip()
+    if not captions:
+        caption = "Нет подписи 😅"
+    else:
+        caption = random.choice(captions).strip()
 
     result_path = add_caption(path, caption)
 
@@ -44,6 +47,8 @@ async def handle_photo(update: Update, context: ContextTypes.DEFAULT_TYPE):
             reply_markup=reply_markup
         )
 
+    await update.message.reply_text("Готово! 🎉")
+
 
 async def share(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
@@ -57,3 +62,9 @@ async def share(update: Update, context: ContextTypes.DEFAULT_TYPE):
             chat_id=CHANNEL_ID,
             photo=photo_file
         )
+
+async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text(
+        "Привет! 👋\n\n"
+        "Отправь мне фото, и я сделаю из него мем 😄"
+    )
