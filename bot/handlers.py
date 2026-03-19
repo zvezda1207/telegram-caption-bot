@@ -72,11 +72,23 @@ async def share(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     path = query.data
 
-    with open(path, "rb") as photo_file:
+    try:
+        url = upload_image(path)
+
         await context.bot.send_photo(
             chat_id=CHANNEL_ID,
-            photo=photo_file
+            photo=url,
+            caption=f"🌐 Открыть оригинал:\n{url}"
         )
+
+    except Exception as e:
+        print("Ошибка при шаринге:", e)
+
+        with open(path, "rb") as photo_file:
+            await context.bot.send_photo(
+                chat_id=CHANNEL_ID,
+                photo=photo_file
+            )
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
