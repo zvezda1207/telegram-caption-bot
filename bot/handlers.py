@@ -49,6 +49,7 @@ async def handle_photo(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
         await update.message.reply_photo(
             photo=url,
+            caption=f"🌐 Ссылка:\n{url}",
             reply_markup=reply_markup
         )
 
@@ -60,12 +61,6 @@ async def handle_photo(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 photo=photo_file,
                 reply_markup=reply_markup
             )
-
-    # 👉 ВНЕ try/except
-    if url:
-        await update.message.reply_text(
-            f"🌐 Ссылка на изображение:\n{url}"
-        )
 
     await update.message.reply_text("Готово! 🎉")
 
