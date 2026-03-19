@@ -50,6 +50,10 @@ async def handle_photo(update: Update, context: ContextTypes.DEFAULT_TYPE):
             reply_markup=reply_markup
         )
 
+        await update.message.reply_text(
+            f"Ссылка на изображение:\n{url}"
+        )
+
     except Exception as e:
         print("Ошибка Cloudinary:", e)
 
