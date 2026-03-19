@@ -42,27 +42,30 @@ async def handle_photo(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     reply_markup = InlineKeyboardMarkup(keyboard)
 
+    url = None
+
     try:
         url = upload_image(result_path)
 
         await update.message.reply_photo(
-                photo=url,
+            photo=url,
             reply_markup=reply_markup
-        )
-
-        await update.message.reply_text(
-            f"Ссылка на изображение:\n{url}"
         )
 
     except Exception as e:
         print("Ошибка Cloudinary:", e)
 
-    # fallback — отправляем файл напрямую
         with open(result_path, "rb") as photo_file:
             await update.message.reply_photo(
                 photo=photo_file,
                 reply_markup=reply_markup
             )
+
+    # 👉 ВНЕ try/except
+    if url:
+        await update.message.reply_text(
+            f"🌐 Ссылка на изображение:\n{url}"
+        )
 
     await update.message.reply_text("Готово! 🎉")
 
