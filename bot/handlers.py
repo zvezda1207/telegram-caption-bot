@@ -1,11 +1,14 @@
 import os
 import random
 from datetime import datetime
+from turtle import update
 
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import ContextTypes
 
 from image_service import add_caption
+from cloudinary_service import upload_image
+
 from config import CHANNEL_ID, CAPTIONS_PATH
 
 async def handle_photo(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -39,11 +42,12 @@ async def handle_photo(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     reply_markup = InlineKeyboardMarkup(keyboard)
 
-    with open(result_path, "rb") as photo_file:
-        await update.message.reply_photo(
-            photo=photo_file,
-            reply_markup=reply_markup
-        )
+    url = upload_image(result_path)
+
+    await update.message.reply_photo(
+        photo=url,
+        reply_markup=reply_markup
+    )
 
     await update.message.reply_text("Готово! 🎉")
 
